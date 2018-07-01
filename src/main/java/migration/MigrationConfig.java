@@ -18,9 +18,6 @@ import static java.util.Objects.isNull;
 @Configuration
 public class MigrationConfig {
 
-    @Value("${storage.igniteJdbcUrl}")
-    private String igniteJdbcUrl;
-
     private static final int TABLE_EXIST_ERROR_CODE = 955;
     private static final String DEFAULT_SCHEMA = "PUBLIC";
 
@@ -38,7 +35,7 @@ public class MigrationConfig {
     @Bean
     public javax.sql.DataSource configureDataSource(Ignite ignite) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(igniteJdbcUrl);
+        dataSource.setUrl("jdbc:ignite:thin://127.0.0.1:10800/PUBLIC");
         dataSource.setDriverClassName(IgniteJdbcThinDriver.class.getName());
         dataSource.setSchema(DEFAULT_SCHEMA);
 
